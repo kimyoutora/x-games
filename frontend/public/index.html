@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React Tutorial</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.16/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/babel">
+    var SportHeader = React.createClass({
+      render: function() {
+        return (
+          <div>
+          <h1>Add a Sport</h1>      
+          </div>
+        );
+      }
+    });
+    var Sport = React.createClass({
+      getInitialState: function() {
+        return {sportName: '', dayOfWeek: 'monday', time: ''};
+      },
+      handleSportNameChange: function(e) {
+        this.setState({sportName: e.target.value});
+      },
+      handleDayOfWeekChange: function(e) {
+        this.setState({dayOfWeek: e.target.value});
+      },
+      handleTimeChange: function(e) {
+        this.setState({time: e.target.value});
+      },
+      handleLocationChange: function(e) {
+        this.setState({location: e.target.value});
+      },
+       handleSubmit: function(e) {
+        e.preventDefault();
+        var sportName = this.state.sportName.trim();
+        var dayOfWeek = this.state.dayOfWeek.trim();
+        var time = this.state.time.trim();
+        if (!sportName || !dayOfWeek) {
+          console.log(sportName);
+          return;
+        }
+        console.log(sportName);
+        console.log(dayOfWeek);
+        console.log(time);
+        this.setState({sportName: '', dayOfWeek: '', time: ''});
+      },
+      render: function() {
+        return(
+        <div>   
+          <SportHeader />             
+          <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name of Sport" 
+          value={this.state.sportName}         
+          onChange={this.handleSportNameChange}
+        /> 
+        <div />
+        Day:
+        <select name="dayOfWeek" value={this.state.dayOfWeek} onChange={this.handleDayOfWeekChange}>
+          <option value="monday">Monday</option>
+          <option value="tuesday">Tuesday</option>
+          <option value="wednesday">Wednesday</option>
+          <option value="thursday">Thursday</option>
+          <option value="friday">Friday</option>
+        </select>
+        <div />
+        Time: 
+        <input 
+          type="time"
+          value={this.state.time}
+          onChange={this.handleTimeChange}
+        />
+        <div />
+        <input
+          type="text"
+          placeholder="Enter a location"          
+        />
+        <div />
+        <input type="submit" value="Submit" />
+        </form>
+        </div>
+        );        
+      }
+    });    
+ReactDOM.render(  
+  <Sport />,
+  document.getElementById('content')
+);
+    </script>
+  </body>
+</html>
